@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ფორმის მაგალითი</title>
+</head>
+<body>
+
+ <h1><a href="search/">B1's word</a></h1>
+
+    <h1>Text Translator</h1>
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="text_to_translate" rows="4" cols="50" placeholder="Type text here..." required></textarea><br><br>
+
+        <label for="target_lang">Translate to:</label>
+        <select name="target_lang" id="target_lang">
+            <option value="ka">Georgian</option>
+            <option value="en">English</option>
+        </select><br><br>
+
+        <button type="submit">Translate</button>
+    </form>
+
+    {% if translated_text %}
+        <h2>Translated Text:</h2>
+        <p>{{ translated_text }}</p>
+    {% endif %}   
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV მონაცემები</title>
+</head>
+<body>
+    <h1>CSV ფაილიდან წამოღებული მონაცემები</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                {% for key in data.0.keys %}
+                    <th>{{ key }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    {% for value in row.values %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+<h1>Search Word</h1>
+
+    <form method="get" action="{% url 'csv-view' %}">
+        <input type="text" name="q" placeholder="Enter name" value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if results %}
+        <h2>Results:</h2>
+        <table border="1">
+            <tr>
+                <th>word</th>
+                <th>level</th>
+            </tr>
+            {% for row in results %}
+            <tr>
+                <td>{{ row.bone }}</td>
+                 <td>{{ row.level }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% elif query %}
+        <p>No results found for "{{ query }}"</p>
+    {% endif %}
+</body>
+</html>
