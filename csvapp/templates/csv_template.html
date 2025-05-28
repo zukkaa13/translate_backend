@@ -24,7 +24,7 @@
         </tbody>
     </table>
 
-<h1>Search People</h1>
+<h1>Search word</h1>
 
     <form method="get" action="{% url 'csv-view' %}">
         <input type="text" name="q" placeholder="Enter name" value="{{ query }}">
@@ -35,12 +35,14 @@
         <h2>Results:</h2>
         <table border="1">
             <tr>
-                <th>word</th>
+                <th>english</th>
+                <th>georgia</th>
                 <th>level</th>
             </tr>
             {% for row in results %}
             <tr>
-                <td>{{ row.bone }}</td>
+                <td>{{ row.english }}</td>
+                <td>{{ row.georgia }}</td>
                  <td>{{ row.level }}</td>
             </tr>
             {% endfor %}
@@ -49,8 +51,11 @@
         <p>No results found for "{{ query }}"</p>
     {% endif %}
 
+
+    <h1>add word </h1>
     <form id="addWordForm">
-  <input type="text" name="word" placeholder="სიტყვა (bone)" required />
+  <input type="text" name="word" placeholder="სიტყვა (english)" required />
+  <input type="text" name="georgia" placeholder="სიტყვა (georgia)" required />
   <input type="text" name="level" placeholder="დონე" required />
   <button type="submit">დამატება</button>
 </form>

@@ -20,7 +20,7 @@ def combined_csv_view(request):
         for row in reader:
             data.append(row)
             # თუ ძებნის სიტყვაა და ის მოიძებნება, ვავსებთ results-ს
-            if query and query in row['bone'].lower():
+            if query and query in row['english'].lower():
                 results.append(row)
 
     context = {
@@ -36,6 +36,7 @@ def combined_csv_view(request):
 def add_word(request):
     if request.method == 'POST':
         word = request.POST.get('word')
+        georgia = request.POST.get('georgia')
         level = request.POST.get('level')
 
         if not word or not level:
@@ -47,10 +48,10 @@ def add_word(request):
         with open(csv_file, 'a', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
             if not file_exists or os.stat(csv_file).st_size == 0:
-                writer.writerow(['bone', 'level'])
-            writer.writerow([word, level])
+                writer.writerow(['english', 'georgia', 'level'])
+            writer.writerow([word, georgia, level])
 
-        return JsonResponse({'success': True, 'word': word, 'level': level})
+        return JsonResponse({'success': True, 'word': word, 'georgia': georgia, 'level': level})
 
     return HttpResponseBadRequest('POST მეთოდი აუცილებელია')
 
@@ -68,4 +69,3 @@ def dashboard(request):
     return render(request, 'dashboard.html', {
         'translated_text': translated_text,
     })
-        
