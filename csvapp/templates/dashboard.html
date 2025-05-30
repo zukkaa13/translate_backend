@@ -1,37 +1,46 @@
+{% load static %}
+{% include "nav.html" %}
+
 <!DOCTYPE html>
 <html lang="ka">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ფორმის მაგალითი</title>
+  <link rel="stylesheet" href="{% static 'css.css' %}">
+      <script src="{% static 'js.js' %}"></script>
+
 </head>
 <body>
- <h1><a href="#">A1's word</a></h1>
- <h1><a href="#">A2's word</a></h1>
- <h1><a href="search/">B1's word</a></h1>
- <h1><a href="#">B2's word</a></h1>
- <h1><a href="#">C1's word</a></h1>
-  <h1><a href="#">C2's word</a></h1>
-
-
-    <h1>Text Translator</h1>
-    <form method="post">
-        {% csrf_token %}
-        <textarea name="text_to_translate" rows="4" cols="50" placeholder="Type text here..." required></textarea><br><br>
-
-        <label for="target_lang">Translate to:</label>
-        <select name="target_lang" id="target_lang">
-            <option value="ka">Georgian</option>
-            <option value="en">English</option>
-        </select><br><br>
-
-        <button type="submit">Translate</button>
-    </form>
-
-    {% if translated_text %}
-        <h2>Translated Text:</h2>
-        <p>{{ translated_text }}</p>
-    {% endif %}   
+<div class='foni'>
+    <div class="container">
+            <div class="trans">
+                <h1>Translator</h1>
+                <form method="post">
+                    {% csrf_token %}
+                    <textarea class='trabslator' name="text_to_translate" rows="4" cols="50" placeholder="Type text here..." required></textarea><br><br>
+                    <div class='act'>
+                        <form method="post" action="/your-form-handler">
+                            <button class='button' type="submit" name="target_lang" value="ka" id="target_lang">Georgian</button>
+                            <button  class='button' type="submit" name="target_lang" value="en">English</button>
+                        </form>
+                    </div>
+                </form>
+                {% if translated_text %}
+                    <h2>Translated Word:</h2>
+                    <p>{{ translated_text }}</p>
+                {% endif %}   
+            </div>
+        <div class="levels">
+            <h2><a href="#">A1's word</a></h2>
+            <h2><a href="#">A2's word</a></h2>
+            <h2><a href="search/">B1's word</a></h2>
+            <h2><a href="#">B2's word</a></h2>
+            <h2><a href="#">C1's word</a></h2>
+            <h2><a href="#">C2's word</a></h2>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

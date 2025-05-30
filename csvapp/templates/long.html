@@ -1,0 +1,35 @@
+{% load static %}
+{% include "nav.html" %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="{% static 'long.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        <h1 class="form-title">Login</h1>
+        <form method="POST" action="{% url 'login' %}" class="login-form">  
+            {% csrf_token %}
+            <div class="input-group">
+                {{ form.as_p }}  
+            </div>
+            <div class="lo">
+                <button type="submit" class="submit-button">Login</button>  
+            </div>
+        </form>
+        <div class="signup-link">
+            <p>Don't have an account? <a href="{% url 'sign' %}">Sign up</a></p>
+        </div>
+            {% if user.is_authenticated %}
+            <form method="POST" action="{% url 'logout' %}" class="logout-form">  
+                {% csrf_token %}
+                    <button type="submit" class="logout-button">Logout</button>  
+            </form>
+        {% endif %}
+    </div>
+</body>
+</html>

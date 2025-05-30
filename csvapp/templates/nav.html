@@ -1,0 +1,11 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'nav.css' %}">
+    <nav class=nav>
+             <a class=home href="{% url 'home' %}"> Home</a>
+        <div class="register">
+            <a class=sign href="{% url 'sign' %}">sign up</a>
+            <a class=log href="{% url 'long' %}">log in</a>
+        </div>
+    </nav>
+</head>

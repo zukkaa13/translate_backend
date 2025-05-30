@@ -1,92 +1,78 @@
+{% load static %}
+{% include "nav.html" %}
+
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>CSV მონაცემები</title>
+<script src="{% static 'js.js' %}"></script>
+<link rel="stylesheet" href="{% static 'words.css' %}">
+
 </head>
 <body>
-    <h1>CSV ფაილიდან წამოღებული მონაცემები</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                {% for key in data.0.keys %}
-                    <th>{{ key }}</th>
-                {% endfor %}
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in data %}
+
+  <div class="srch">
+    <h1>Search word</h1>
+        <form method="get" action="{% url 'csv-view' %}">
+            <input type="text" name="q"  value="{{ query }}">
+            <button type="submit">Search</button>
+        </form>
+
+        {% if results %}
+            <h2>Results:</h2>
+            <table border="1">
                 <tr>
-                    {% for value in row.values %}
-                        <td>{{ value }}</td>
+                    <th>english</th>
+                    <th>georgia</th>
+                    <th>level</th>
+                </tr>
+                {% for row in results %}
+                <tr>
+                    <td>{{ row.english }}</td>
+                    <td>{{ row.georgia }}</td>
+                    <td>{{ row.level }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% elif query %}
+            <p>No results found for "{{ query }}"</p>
+        {% endif %}
+  </div>
+    <div class="words">
+        <table border="1">
+            <thead>
+                <tr>
+                    {% for key in data.0.keys %}
+                        <th>{{ key }}</th>
                     {% endfor %}
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-<h1>Search word</h1>
-
-    <form method="get" action="{% url 'csv-view' %}">
-        <input type="text" name="q" placeholder="Enter name" value="{{ query }}">
-        <button type="submit">Search</button>
-    </form>
-
-    {% if results %}
-        <h2>Results:</h2>
-        <table border="1">
-            <tr>
-                <th>english</th>
-                <th>georgia</th>
-                <th>level</th>
-            </tr>
-            {% for row in results %}
-            <tr>
-                <td>{{ row.english }}</td>
-                <td>{{ row.georgia }}</td>
-                 <td>{{ row.level }}</td>
-            </tr>
-            {% endfor %}
+            </thead>
+            <tbody>
+                {% for row in data %}
+                    <tr>
+                        {% for value in row.values %}
+                            <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
-    {% elif query %}
-        <p>No results found for "{{ query }}"</p>
-    {% endif %}
+    </div>
 
 
-    <h1>add word </h1>
-    <form id="addWordForm">
-  <input type="text" name="word" placeholder="სიტყვა (english)" required />
-  <input type="text" name="georgia" placeholder="სიტყვა (georgia)" required />
-  <input type="text" name="level" placeholder="დონე" required />
-  <button type="submit">დამატება</button>
-</form>
 
-<div id="message"></div>
+    <div class="add">
+            <h1>add word </h1>
+            <form id="addWordForm">
+        <input type="text" name="word" placeholder="სიტყვა (english)" required />
+        <input type="text" name="georgia" placeholder="სიტყვა (georgia)" required />
+        <input type="text" name="level" placeholder="დონე" required />
+        <button type="submit">დამატება</button>
+        </form>
 
-<script>
-document.getElementById('addWordForm').addEventListener('submit', function(e){
-  e.preventDefault();
-
-  const formData = new FormData(this);
-
-  fetch('/add_word/', {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => response.json())
-  .then(data => {
-    const msgDiv = document.getElementById('message');
-    if(data.success){
-      msgDiv.textContent = `სიტყვა "${data.word}" დაემატა დონეზე "${data.level}"`;
-      this.reset();
-    } else if(data.error){
-      msgDiv.textContent = `შეცდომა: ${data.error}`;
-    }
-  })
-  .catch(() => {
-    document.getElementById('message').textContent = 'შეცდომა მოთხოვნის შესრულებისას';
-  });
-});
-</script>
+        <div id="message"></div>
+    </div>
 
 </body>
 </html>

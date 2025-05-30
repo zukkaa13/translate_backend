@@ -1,0 +1,130 @@
+.nav{
+  height: 60px;
+  background-color:  #8b93f8;
+}
+
+
+
+.sign {
+ padding: 7px 12px;
+ border: unset;
+ border-radius: 15px;
+ color: #212121;
+ z-index: 1;
+ background: #e8e8e8;
+ position: relative;
+ font-weight: 1000;
+ font-size: 14px;
+ -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ transition: all 250ms;
+ overflow: hidden;
+text-decoration: none;
+position: relative;
+ top: -2px;
+}
+
+.sign::before {
+ content: "";
+ position: absolute;
+ top: 0;
+ left: 0;
+ height: 100%;
+ width: 0;
+ border-radius: 15px;
+ background-color: #212121;
+ z-index: -1;
+ -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ transition: all 250ms
+}
+
+.sign:hover {
+ color: #e8e8e8;
+}
+
+.sign:hover::before {
+ width: 100%;
+}
+
+
+
+
+
+
+.log {
+ padding: 7px 12px;
+ border: unset;
+ border-radius: 15px;
+ color: #212121;
+ z-index: 1;
+ background: #e8e8e8;
+ position: relative;
+ font-weight: 1000;
+ font-size: 14px;
+ -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ transition: all 250ms;
+ overflow: hidden;
+ text-decoration: none;
+ position: relative;
+  top: -2px;
+
+
+}
+
+.log::before {
+ content: "";
+ position: absolute;
+ top: 0;
+ left: 0;
+ height: 100%;
+ width: 0;
+ border-radius: 15px;
+ background-color: #212121;
+ z-index: -1;
+ -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ transition: all 250ms
+
+}
+
+.log:hover {
+ color: #e8e8e8;
+}
+
+.log:hover::before {
+ width: 100%;
+}
+
+.home {
+ padding: 7px 12px;
+ border: unset;
+ border-radius: 15px;
+ color: #212121;
+ z-index: 1;
+ background: #e8e8e8;
+ position: relative;
+ font-weight: 1000;
+ font-size: 14px;
+ -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+ transition: all 250ms;
+ overflow: hidden;
+ text-decoration: none;
+ position: relative;
+ top: 20px;
+ left: 15px;
+
+}
+
+
+.register{
+    display: flex;
+    justify-content: flex-end;
+    gap: 25px;
+    padding: 0px 30px 0 0; 
+   
+}
+
+

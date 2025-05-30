@@ -6,6 +6,12 @@ from django.http import JsonResponse, HttpResponseBadRequest
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from googletrans import Translator
+from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
+
+
+
+
 
 def combined_csv_view(request):
     query = request.GET.get('q', '').lower()
@@ -69,3 +75,37 @@ def dashboard(request):
     return render(request, 'dashboard.html', {
         'translated_text': translated_text,
     })
+
+def sign(request):
+    if request.method == 'POST':
+        name = request.POST['Username']  
+        email = request.POST['email']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+        lastname = request.POST['Lastname'] 
+
+        if password1 != password2:
+            return render(request, 'sign.html', {'error': 'Passwords do not match'})
+
+        user = User.objects.create_user(username=name, email=email, password=password1, last_name=lastname)
+        user.save()
+
+        login(request, user)  
+
+        return redirect('admin:index')  
+
+    return render(request, 'sign.html')
+
+
+def long(request):
+    if request.method == "POST":
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            login(request, form.get_user())
+            return redirect("dashboard")  
+        else:
+            messages.error(request, "Invalid username or password.")
+    else:
+        form = AuthenticationForm()
+    
+    return render(request, 'long.html', {"form": form})    
