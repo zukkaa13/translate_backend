@@ -1,4 +1,4 @@
-document.getElementById('addWordForm').addEventListener('submit', function(e){
+ document.getElementById('addWordForm').addEventListener('submit', function(e){
   e.preventDefault();
 
   const formData = new FormData(this);
@@ -21,5 +21,4 @@ document.getElementById('addWordForm').addEventListener('submit', function(e){
     document.getElementById('message').textContent = 'შეცდომა მოთხოვნის შესრულებისას';
   });
 });
-
 

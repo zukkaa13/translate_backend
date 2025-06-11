@@ -10,8 +10,11 @@
     <link rel="stylesheet" href="{% static 'long.css' %}">
 </head>
 <body>
+<body>
+  <div class="page-wrapper">
     <div class="form-container">
         <h1 class="form-title">Login</h1>
+
         <form method="POST" action="{% url 'login' %}" class="login-form">  
             {% csrf_token %}
             <div class="input-group">
@@ -21,15 +24,22 @@
                 <button type="submit" class="submit-button">Login</button>  
             </div>
         </form>
+
         <div class="signup-link">
             <p>Don't have an account? <a href="{% url 'sign' %}">Sign up</a></p>
         </div>
-            {% if user.is_authenticated %}
-            <form method="POST" action="{% url 'logout' %}" class="logout-form">  
-                {% csrf_token %}
-                    <button type="submit" class="logout-button">Logout</button>  
-            </form>
+
+        {% if user.is_authenticated %}
+        <form method="POST" action="{% url 'long' %}" class="logout-form">  
+            {% csrf_token %}
+            <div class="lo">
+                <button type="submit" class="logout-button">Logout</button>  
+            </div>
+        </form>
         {% endif %}
     </div>
+  </div>
+</body>
+
 </body>
 </html>

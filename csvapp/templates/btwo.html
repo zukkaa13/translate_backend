@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>B1 Word</title>
+    <title>B2 Word</title>
 <script src="{% static 'js.js' %}"></script>
 <link rel="stylesheet" href="{% static 'words.css' %}">
 
@@ -14,7 +14,7 @@
 
   <div class="srch">
     <h1>Search word</h1>
-        <form method="get" action="{% url 'csv-view' %}">
+        <form method="get" action="{% url 'Btwo' %}">
             <input type="text" name="q"  value="{{ query }}">
             <button type="submit">Search</button>
         </form>
