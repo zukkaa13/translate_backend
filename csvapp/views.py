@@ -121,7 +121,7 @@ def Cone(request):
     results = []
 
     csv_file = os.path.join(settings.BASE_DIR, 'csvapp/static/csv/cone.csv')
-
+ 
     # CSV-ის წაკითხვა და მონაცემების შევსება data-ში
     with open(csv_file, newline='', encoding='utf-8') as f:
         reader = csv.DictReader(f)
@@ -139,29 +139,53 @@ def Cone(request):
     return render(request, 'cone.html', context)
 
 
-
 @csrf_exempt
 def add_word(request):
     if request.method == 'POST':
-        word = request.POST.get('word')
+        english = request.POST.get('english')
         georgia = request.POST.get('georgia')
         level = request.POST.get('level')
 
-        if not word or not level:
-            return JsonResponse({'error': 'სიტყვა და დონე აუცილებელია'}, status=400)
-
         csv_file = os.path.join(settings.BASE_DIR, 'csvapp/static/csv/words.csv')
-        file_exists = os.path.isfile(csv_file)
 
-        with open(csv_file, 'a', newline='', encoding='utf-8') as f:
-            writer = csv.writer(f)
-            if not file_exists or os.stat(csv_file).st_size == 0:
-                writer.writerow(['english', 'georgia', 'level'])
-            writer.writerow([word, georgia, level])
+        try:
+            os.makedirs(os.path.dirname(csv_file), exist_ok=True)
+            with open(csv_file, 'a', newline='', encoding='utf-8') as f:
+                writer = csv.writer(f)
+                if os.stat(csv_file).st_size == 0:
+                    writer.writerow(['english', 'georgia', 'level'])
+                writer.writerow([english, georgia, level])
+        except Exception as e:
+            return JsonResponse({'error': f'CSV write error: {e}', 'path': csv_file}, status=500)
 
-        return JsonResponse({'success': True, 'word': word, 'georgia': georgia, 'level': level})
+        return JsonResponse({'success': True, 'word': english, 'georgia': georgia, 'level': level, 'path': csv_file})
 
     return HttpResponseBadRequest('POST მეთოდი აუცილებელია')
+
+
+@csrf_exempt
+def add_btwo(request):
+    if request.method == 'POST':
+        english = request.POST.get('english')
+        georgia = request.POST.get('georgia')
+        level = request.POST.get('level')
+
+        csv_file = os.path.join(settings.BASE_DIR, 'csvapp/static/csv/btwo.csv')
+
+        try:
+            os.makedirs(os.path.dirname(csv_file), exist_ok=True)
+            with open(csv_file, 'a', newline='', encoding='utf-8') as f:
+                writer = csv.writer(f)
+                if os.stat(csv_file).st_size == 0:
+                    writer.writerow(['english', 'georgia', 'level'])
+                writer.writerow([english, georgia, level])
+        except Exception as e:
+            return JsonResponse({'error': f'CSV write error: {e}', 'path': csv_file}, status=500)
+
+        return JsonResponse({'success': True, 'word': english, 'georgia': georgia, 'level': level, 'path': csv_file})
+
+    return HttpResponseBadRequest('POST მეთოდი აუცილებელია')
+
 
 
 
@@ -215,4 +239,4 @@ def long(request):
     else:
         form = AuthenticationForm()
     
-    return render(request, 'long.html', {"form": form})    
+    return render(request, 'long.html', {"form": form})     
